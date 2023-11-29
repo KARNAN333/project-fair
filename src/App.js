@@ -1,23 +1,29 @@
-import logo from './logo.svg';
+
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import Auth from './Components/Auth';
+import Footer from './Components/Footer';
+import Dashboard from './Pages/Dashboard';
+import Home from './Pages/Home';
+import Projects from './Pages/Projects';
+import { useContext } from 'react';
+import { tokenAuthorisationContext } from './Contexts/TokenAuth';
+
 
 function App() {
+  const {isAuthorized,setIsAuthorized} = useContext(tokenAuthorisationContext)
+  console.log(isAuthorized);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     <Routes>
+      <Route path='/' element={<Home />} />
+      <Route path='/login' element={<Auth />} />
+      <Route path='/register' element={<Auth register/>} />
+      <Route path='/dashboard' element={ isAuthorized? <Dashboard />: <Home />} />
+      <Route path='/projects' element={ isAuthorized? <Projects />: <Home />} />
+     </Routes>
+     <Footer />
+    
     </div>
   );
 }

@@ -1,5 +1,5 @@
 
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Auth from './Components/Auth';
 import Footer from './Components/Footer';
@@ -21,6 +21,7 @@ function App() {
       <Route path='/register' element={<Auth register/>} />
       <Route path='/dashboard' element={ isAuthorized? <Dashboard />: <Home />} />
       <Route path='/projects' element={ isAuthorized? <Projects />: <Home />} />
+      <Route path='/*' element={<Navigate to={'/'}/>} />
      </Routes>
      <Footer />
     
